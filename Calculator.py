@@ -128,7 +128,6 @@ def handle():
 	text = text.replace("⁹", "9")
 
 	for i in range(text.count("**")):
-		print(text)
 		aa = re.search(r"\d*(\*\*)\d*", text)
 		aaspan = aa.span()
 		aa = aa.group().split("**")
@@ -165,28 +164,42 @@ def handle():
 		text = text.replace(f"√{a}", str(na), 1)
 		count = count + len(str(na))
 
+	text = text.replace("x", "*")
+	text = text.replace("÷", "/")
 	calculate(text)
 
 
 def calculate(s):
+	if isinstance(s, float) == True:
+		print("Aaa")
+		return s
+	else:
+		print("its not a float")
 	if s == None:
+		print("Aaaaa nooo its a None")
 		return 0
 	try:
+		print("AAAAA its a digit")
 		if s.isdigit():
 			return float(s)
 	except:
 		pass
 
-	print("a")
-	for c in ops.keys():
-		left, operator, right = s.partition(c)
-		if operator in ops:
+	print(s)
+	#for c in ops.keys():
+	#	left, operator, right = s.partition(c)
+	#	if operator in ops:
+	#		result = ops[operator](left, right)
+	#		
+	#		result = "{:.2f}".format(float(result))
+	#		button_click("!clear")
+	#		mainTextDisplay.insert("end-1c", result)
+	#		calculationHistory[f'{mainTextDisplay.get("1.0", "end-1c")}'] = result
 
-			result = ops[operator](calculate(left), calculate(right))
-			result = "{:.2f}".format(float(result))
-			button_click("!clear")
-			mainTextDisplay.insert("end-1c", result)
-			calculationHistory[f'{mainTextDisplay.get("1.0", "end-1c")}'] = result
+	result = "{:.2f}".format(float(eval(s)))
+	button_click("!clear")
+	mainTextDisplay.insert("end-1c", result)
+	calculationHistory[f'{mainTextDisplay.get("1.0", "end-1c")}'] = result
 
 
 
